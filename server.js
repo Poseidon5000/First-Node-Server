@@ -1,5 +1,9 @@
 const http = require('http');
 const url = require('url');
+const fs = require('fs')
+
+const data = fs.readFileSync(`${__dirname}/data.json`, "utf-8");
+const productData = JSON.parse(data);
 
 const reqHandler = (req, res) =>{
 const pathName = req.url;
@@ -13,13 +17,25 @@ else if(pathName === '/overview'){
 else if(pathName === "/products"){
     res.end("THIS IS THE PRODUCTS PAGE")
 }
-else{
 
-    res.end("404! NOT FOUND")
+else if (pathName === "/api"){
+    res.writeHead(200, {
+        'Content-type':'application/json'
+    })
+    res.end(data)
 }
 
 
-res.end('Hello there')
+else{
+res.writeHead(404, {
+    'Content-type': 'text/html',
+
+});
+    res.end("<h1>404! NOT FOUND</h1>")
+}
+
+
+// res.end('Hello there')
 
 };
 
