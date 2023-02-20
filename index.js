@@ -30,6 +30,6 @@ const calculate = require('./add')
 //     res.end("HELLO YOU REq")
 // })
 
- console.log(calculate.add(10,12));
- console.log(calculate.subtract(40, 23));
- console.log(calculate.divide(60, 25));
+//  console.log(calculate.add(10,12));
+//  console.log(calculate.subtract(40, 23));
+//  console.log(calculate.divide(60, ));

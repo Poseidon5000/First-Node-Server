@@ -19,7 +19,14 @@ const replaceTemplate = (temp, product)=>{
     output= output.replace(/{%PRICE%}/g, product.price)
     output= output.replace(/{%DESCRIPTION%}/g, product.description)
     output= output.replace(/{%IMAGE%}/g, product.image)
+     output = output.replace(/{%ID%}/g, product.id);
+
+    if(!product.organic) output= output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
+    return output;
+
 }
+
+
 
 const reqHandler = (req, res) =>{
 const pathName = req.url;
@@ -31,9 +38,12 @@ if(pathName === '/overview'){
     res.writeHead(200, {
         'Content-type':"text/html"
     })
-    res.end(overview)
-
-    const cardsHtml = productData.map(el=> replaceTemplate(card, el))
+    
+    const cardsHtml = productData.map(el=> replaceTemplate(card, el)).join('')
+    
+    const output = overview.replace('{%PRODUCT_CARDS%}', cardsHtml)
+    
+    res.end(output)
 }
 
 else if(pathName === "/products"){
